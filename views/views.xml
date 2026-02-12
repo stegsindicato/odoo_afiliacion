@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- =========================================================
+       SEARCH VIEWS (primeiro, para que as accións poidan referenciar)
+       ========================================================= -->
+
+  <record id="view_partner_search_afiliado" model="ir.ui.view">
+    <field name="name">res.partner.search.afiliado</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <search string="Buscar afiliados">
+        <field name="name"/>
+        <field name="dni"/>
+        <field name="numero_afiliado"/>
+        <field name="email"/>
+        <field name="mobile"/>
+        <field name="sede"/>
+        <field name="especialidade_id"/>
+        <field name="centro_traballo_id"/>
+        <field name="situacion_laboral"/>
+
+        <filter string="Só activos" name="f_activos" domain="[('afiliacion_activa','=',True)]"/>
+        <filter string="Só inactivos" name="f_inactivos" domain="[('afiliacion_activa','=',False)]"/>
+
+        <group expand="0" string="Agrupar por">
+          <filter string="Sede" name="g_sede" context="{'group_by':'sede'}"/>
+          <filter string="Situación laboral" name="g_sit" context="{'group_by':'situacion_laboral'}"/>
+          <filter string="Centro de traballo" name="g_centro" context="{'group_by':'centro_traballo_id'}"/>
+          <filter string="Especialidade" name="g_esp" context="{'group_by':'especialidade_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_partner_search_centro" model="ir.ui.view">
+    <field name="name">res.partner.search.centro</field>
+    <field name="model">res.partner</field>
+    <field name="arch" type="xml">
+      <search string="Buscar centros">
+        <field name="name"/>
+        <field name="codigo_centro"/>
+        <field name="email"/>
+        <field name="phone"/>
+        <field name="city"/>
+        <field name="state_id"/>
+
+        <group expand="0" string="Agrupar por">
+          <filter string="Provincia" name="g_prov" context="{'group_by':'state_id'}"/>
+          <filter string="Cidade" name="g_city" context="{'group_by':'city'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- =========================================================
+       ACCIÓNS / MENÚS
+       ========================================================= -->
+
+  <record id="action_sindicato_afiliados" model="ir.actions.act_window">
+    <field name="name">Afiliados</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('e_afiliado','=',True)]</field>
+    <field name="context">{'default_e_afiliado': True, 'default_company_type': 'person'}</field>
+    <field name="search_view_id" ref="view_partner_search_afiliado"/>
+  </record>
+
+  <record id="action_sindicato_centros" model="ir.actions.act_window">
+    <field name="name">Centros educativos</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('e_centro_educativo','=',True)]</field>
+    <field name="context">{'default_e_centro_educativo': True, 'default_company_type': 'company'}</field>
+    <field name="search_view_id" ref="view_partner_search_centro"/>
+  </record>
+
+  <menuitem id="menu_sindicato_root" name="Afiliación e Centros" sequence="10"/>
+  <menuitem id="menu_sindicato_afiliados" name="Afiliados" parent="menu_sindicato_root"
+            action="action_sindicato_afiliados" sequence="10"/>
+  <menuitem id="menu_sindicato_centros" name="Centros educativos" parent="menu_sindicato_root"
+            action="action_sindicato_centros" sequence="20"/>
+
+  <menuitem id="menu_sindicato_config" name="Configuración" parent="menu_sindicato_root" sequence="90"/>
+
+  <!-- =========================================================
+       LISTAS (list)
+       ========================================================= -->
+
+  <record id="view_partner_list_afiliado" model="ir.ui.view">
+    <field name="name">res.partner.list.afiliado</field>
+    <field name="model">res.partner</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+      <list string="Afiliados" create="1" edit="1">
+        <field name="numero_afiliado"/>
+        <field name="name"/>
+        <field name="sede"/>
+        <field name="phone"/>
+        <field name="mobile"/>
+        <field name="email"/>
+        <field name="centro_traballo_id"/>
+        <field name="especialidade_id"/>
+        <field name="situacion_laboral"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="view_partner_list_centro" model="ir.ui.view">
+    <field name="name">res.partner.list.centro</field>
+    <field name="model">res.partner</field>
+    <field name="priority">20</field>
+    <field name="arch" type="xml">
+      <list string="Centros educativos" create="1" edit="1">
+        <field name="codigo_centro"/>
+        <field name="name"/>
+        <field name="phone"/>
+        <field name="email"/>
+        <field name="city"/>
+        <field name="state_id"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- =========================================================
+       KANBAN (list)
+       ========================================================= -->
+
+  <record id="view_partner_kanban_afiliado" model="ir.ui.view">
+  <field name="name">res.partner.kanban.afiliado</field>
+  <field name="model">res.partner</field>
+  <field name="priority">25</field>
+  <field name="arch" type="xml">
+    <kanban class="o_kanban_small_column">
+      <!-- Campos usados -->
+      <field name="name"/>
+      <field name="centro_traballo_id"/>
+      <field name="especialidade_id"/>
+      <field name="situacion_laboral"/>
+
+      <templates>
+        <t t-name="kanban-box">
+          <div class="o_kanban_record">
+
+            <!-- Nome -->
+            <div class="o_kanban_record_title">
+              <strong>
+                <field name="name"/>
+              </strong>
+            </div>
+
+            <!-- Centro de traballo -->
+            <div class="mt-2" t-if="record.centro_traballo_id.value">
+              <span class="text-muted">Centro:</span>
+              <field name="centro_traballo_id"/>
+            </div>
+
+            <!-- Especialidade -->
+            <div t-if="record.especialidade_id.value">
+              <span class="text-muted">Especialidade:</span>
+              <field name="especialidade_id"/>
+            </div>
+
+            <!-- Situación laboral -->
+            <div t-if="record.situacion_laboral.value">
+              <span class="text-muted">Situación:</span>
+              <field name="situacion_laboral"/>
+            </div>
+
+          </div>
+        </t>
+      </templates>
+    </kanban>
+  </field>
+</record>
+
+
+  <record id="view_partner_kanban_centro" model="ir.ui.view">
+  <field name="name">res.partner.kanban.centro</field>
+  <field name="model">res.partner</field>
+  <field name="priority">25</field>
+  <field name="arch" type="xml">
+    <kanban class="o_kanban_small_column">
+      <!-- Campos usados -->
+      <field name="name"/>
+      <field name="city"/>
+      <field name="state_id"/>
+
+      <templates>
+        <t t-name="kanban-box">
+          <div class="o_kanban_record">
+
+            <!-- Nome -->
+            <div class="o_kanban_record_title">
+              <strong>
+                <field name="name"/>
+              </strong>
+            </div>
+
+            <!-- Localidade -->
+            <div class="mt-2" t-if="record.city.value">
+              <span class="text-muted">Localidade:</span>
+              <field name="city"/>
+            </div>
+
+            <!-- Provincia -->
+            <div t-if="record.state_id.value">
+              <span class="text-muted">Provincia:</span>
+              <field name="state_id"/>
+            </div>
+
+          </div>
+        </t>
+      </templates>
+    </kanban>
+  </field>
+</record>
+
+
+
+  <!-- =========================================================
+       FORMULARIOS (FORM)
+       ========================================================= -->
+
+  <record id="view_partner_form_afiliado" model="ir.ui.view">
+    <field name="name">res.partner.form.afiliado</field>
+    <field name="model">res.partner</field>
+    <field name="priority">30</field>
+    <field name="arch" type="xml">
+      <form string="Afiliado">
+        <sheet>
+          <group invisible="1">
+            <field name="e_afiliado"/>
+            <field name="e_centro_educativo"/>
+            <field name="company_type"/>
+            <field name="active"/>
+          </group>
+
+          <div class="oe_title">
+            <h1><field name="name" placeholder="Nome e apelidos"/></h1>
+          </div>
+
+          <group>
+            <group string="Identificación">
+              <field name="dni"/>
+              <field name="numero_afiliado"/>
+              <field name="xenero"/>
+              <field name="data_nacemento"/>
+            </group>
+
+            <group string="Afiliación">
+              <field name="afiliacion_activa" readonly="1"/>
+              <field name="data_alta"/>
+              <field name="data_baixa"/>
+              <field name="sede"/>
+              <field name="tipo_cota_id"/>
+            </group>
+          </group>
+
+          <notebook>
+            <page string="Contacto">
+              <group>
+                <group>
+                  <field name="phone"/>
+                  <field name="mobile"/>
+                  <field name="email"/>
+                </group>
+                <group string="Enderezo">
+                  <field name="street"/>
+                  <field name="street2"/>
+                  <field name="zip"/>
+                  <field name="city"/>
+                  <field name="state_id" options="{'no_open': True}"/>
+                  <field name="country_id" options="{'no_open': True}"/>
+                </group>
+              </group>
+            </page>
+
+            <page string="Profesional">
+              <group>
+                <field name="especialidade_id"/>
+                <field name="centro_traballo_id" domain="[('e_centro_educativo','=',True)]"/>
+                <field name="situacion_laboral"/>
+              </group>
+            </page>
+
+            <page string="Notas">
+              <field name="comment" placeholder="Observacións..." nolabel="1"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_partner_form_centro" model="ir.ui.view">
+    <field name="name">res.partner.form.centro</field>
+    <field name="model">res.partner</field>
+    <field name="priority">30</field>
+    <field name="arch" type="xml">
+      <form string="Centro educativo">
+        <sheet>
+          <group invisible="1">
+            <field name="e_centro_educativo"/>
+            <field name="e_afiliado"/>
+            <field name="company_type"/>
+            <field name="active"/>
+          </group>
+
+          <div class="oe_title">
+            <h1><field name="name" placeholder="Nome do centro"/></h1>
+          </div>
+
+          <group>
+            <group string="Datos do centro">
+              <field name="codigo_centro"/>
+              <field name="email"/>
+              <field name="phone"/>
+            </group>
+          </group>
+
+          <notebook>
+
+            <page string="Afiliados">
+              <field name="afiliados_ids" nolabel="1"
+                     domain="[('e_afiliado','=',True)]"
+                     context="{'default_e_afiliado': True}">
+                <list string="Afiliados do centro" create="0" edit="0" delete="0">
+                  <field name="name"/>
+                  <field name="mobile"/>
+                  <field name="email"/>
+                  <field name="situacion_laboral"/>
+                  <field name="especialidade_id"/>
+                </list>
+              </field>
+            </page>
+
+
+            <page string="Localización">
+
+              <!-- Enderezo -->
+              <group string="Enderezo">
+                <field name="street"/>
+                <field name="street2"/>
+                <field name="zip"/>
+                <field name="city"/>
+                <field name="state_id" options="{'no_open': True}"/>
+                <field name="country_id" options="{'no_open': True}"/>
+              </group>
+
+              <!-- Coordenadas: só admins -->
+              <group string="Coordenadas" groups="base.group_system">
+                <field name="partner_latitude"/>
+                <field name="partner_longitude"/>
+              </group>
+
+
+
+              <!-- Ligazóns -->
+              <group string="Ligazóns">
+                  <field name="ligazon_google_maps" widget="url" readonly="1"
+                         invisible="not ligazon_google_maps"/>
+                  <field name="ligazon_osm" widget="url" readonly="1"
+                         invisible="not ligazon_osm"/>
+
+                  <div class="o_form_label"
+                       invisible="ligazon_google_maps or ligazon_osm">
+                    (Non hai coordenadas GPS gardadas)
+                  </div>
+                </group>
+
+            </page>
+
+
+
+            <page string="Notas">
+              <field name="comment" placeholder="Observacións..." nolabel="1"/>
+            </page>
+
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- =========================================================
+       VINCULAR VISTAS ÁS ACCIÓNS
+       ========================================================= -->
+
+  <record id="action_sindicato_afiliados_view_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_partner_list_afiliado"/>
+    <field name="act_window_id" ref="action_sindicato_afiliados"/>
+  </record>
+  <record id="action_sindicato_afiliados_view_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_partner_form_afiliado"/>
+    <field name="act_window_id" ref="action_sindicato_afiliados"/>
+  </record>
+
+  <record id="action_sindicato_centros_view_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_partner_list_centro"/>
+    <field name="act_window_id" ref="action_sindicato_centros"/>
+  </record>
+  <record id="action_sindicato_centros_view_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_partner_form_centro"/>
+    <field name="act_window_id" ref="action_sindicato_centros"/>
+  </record>
+
+  <!-- =========================================================
+       CATÁLOGOS: ESPECIALIDADES E TIPOS DE COTA
+       ========================================================= -->
+
+  <record id="view_especialidade_list" model="ir.ui.view">
+    <field name="name">sindicato.especialidade.list</field>
+    <field name="model">sindicato.especialidade</field>
+    <field name="arch" type="xml">
+      <list string="Especialidades">
+        <field name="corpo"/>
+        <field name="codigo_oficial"/>
+        <field name="nome"/>
+        <field name="activo"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="view_especialidade_form" model="ir.ui.view">
+    <field name="name">sindicato.especialidade.form</field>
+    <field name="model">sindicato.especialidade</field>
+    <field name="arch" type="xml">
+      <form string="Especialidade">
+        <sheet>
+          <group>
+            <field name="corpo"/>
+            <field name="codigo_oficial"/>
+            <field name="nome"/>
+            <field name="activo"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_especialidades" model="ir.actions.act_window">
+    <field name="name">Especialidades</field>
+    <field name="res_model">sindicato.especialidade</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem id="menu_sindicato_especialidades" name="Especialidades" parent="menu_sindicato_config"
+            action="action_especialidades" sequence="10"/>
+
+  <record id="view_tipo_cota_list" model="ir.ui.view">
+    <field name="name">sindicato.tipo.cota.list</field>
+    <field name="model">sindicato.tipo.cota</field>
+    <field name="arch" type="xml">
+      <list string="Tipos de cota">
+        <field name="nome"/>
+        <field name="activo"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="view_tipo_cota_form" model="ir.ui.view">
+    <field name="name">sindicato.tipo.cota.form</field>
+    <field name="model">sindicato.tipo.cota</field>
+    <field name="arch" type="xml">
+      <form string="Tipo de cota">
+        <sheet>
+          <group>
+            <field name="nome"/>
+            <field name="activo"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_tipos_cota" model="ir.actions.act_window">
+    <field name="name">Tipos de cota</field>
+    <field name="res_model">sindicato.tipo.cota</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem id="menu_sindicato_tipos_cota" name="Tipos de cota" parent="menu_sindicato_config"
+            action="action_tipos_cota" sequence="20"/>
+
+</odoo>

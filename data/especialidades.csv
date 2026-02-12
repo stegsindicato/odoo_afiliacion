@@ -1,0 +1,295 @@
+id,corpo,codigo_oficial,nome,activo
+esp_590001,590,590001,Filosofía,True
+esp_590002,590,590002,Griego,True
+esp_590003,590,590003,Latín,True
+esp_590004,590,590004,Lengua castellana y literatura,True
+esp_590005,590,590005,Geografía e historia,True
+esp_590006,590,590006,Matemáticas,True
+esp_590007,590,590007,Física y química,True
+esp_590008,590,590008,Biología y geología,True
+esp_590009,590,590009,Dibujo,True
+esp_590010,590,590010,Francés,True
+esp_590011,590,590011,Inglés,True
+esp_590012,590,590012,Alemán,True
+esp_590013,590,590013,Italiano,True
+esp_590014,590,590014,Lengua y literatura catalana (islas baleares),True
+esp_590015,590,590015,Portugués,True
+esp_590016,590,590016,Música,True
+esp_590017,590,590017,Educación física,True
+esp_590018,590,590018,Psicología y pedagogía,True
+esp_590019,590,590019,Tecnología,True
+esp_590039,590,590039,Tecnología minera,True
+esp_590051,590,590051,Lengua catalana y literatura,True
+esp_590052,590,590052,Lengua y literatura vasca,True
+esp_590053,590,590053,Lengua y literatura gallega,True
+esp_590055,590,590055,Educadores (ceis),True
+esp_590056,590,590056,Lengua y literatura valenciana,True
+esp_590057,590,590057,Lengua y literatura vasca (navarra),True
+esp_590058,590,590058,Profesor de apoyo de lengua o cc.ss.,True
+esp_590059,590,590059,Profesor de apoyo del a. De ciencias o tecnología.,True
+esp_590061,590,590061,Economía,True
+esp_590062,590,590062,Lengua aranesa,True
+esp_590101,590,590101,Administración de empresas,True
+esp_590102,590,590102,Análisis y química industrial,True
+esp_590103,590,590103,Asesoría y procesos de imagen personal,True
+esp_590104,590,590104,Construcciones civiles y edificación,True
+esp_590105,590,590105,Formación y orientación laboral,True
+esp_590106,590,590106,Hostelería y turismo,True
+esp_590107,590,590107,Informática,True
+esp_590108,590,590108,Intervención sociocomunitaria,True
+esp_590109,590,590109,Navegaciones e instalaciones marina,True
+esp_590110,590,590110,Organización y gestión comercial,True
+esp_590111,590,590111,Organización y procesos de mantenimiento de vehículos,True
+esp_590112,590,590112,Organización y proyectos de fabricación mecánica,True
+esp_590113,590,590113,Organización y proyectos de sistemas energéticos,True
+esp_590114,590,590114,Procesos de cultivo acuicola,True
+esp_590115,590,590115,Procesos de producción agraria,True
+esp_590116,590,590116,Procesos en la industria alimentaria,True
+esp_590117,590,590117,Procesos de diagnóstico clínico y productos ortoprotésicos,True
+esp_590118,590,590118,Procesos sanitarios,True
+esp_590119,590,590119,Procesos y medios de comunicación,True
+esp_590120,590,590120,"Procesos y productos de textil, confección y piel",True
+esp_590121,590,590121,Procesos y productos de vidrio y cerámica,True
+esp_590122,590,590122,Procesos y productos de artes gráficas,True
+esp_590123,590,590123,Procesos y productos en madera y mueble,True
+esp_590124,590,590124,Sistemas electrónicos,True
+esp_590125,590,590125,Sistemas electrotécnicos y automáticos,True
+esp_590803,590,590803,Cultura clásica,True
+esp_591016,591,591016,Prácticas de minería,True
+esp_591021,591,591021,Taller de vidrio y cerámica,True
+esp_591025,591,591025,Actividades (ceis),True
+esp_591026,591,591026,Apoyo al área práctica,True
+esp_591201,591,591201,Cocina y pastelería,True
+esp_591202,591,591202,Equipos electrónicos,True
+esp_591203,591,591203,Estética,True
+esp_591204,591,591204,Fabricación e instalación de carpintería y mueble,True
+esp_591205,591,591205,Instalación y mantenimiento de equipos térmicos y fluidos,True
+esp_591206,591,591206,Instalaciones electrotécnicas,True
+esp_591207,591,591207,Instalaciones y equipos de cría y cultivo,True
+esp_591208,591,591208,Laboratorio,True
+esp_591209,591,591209,Mantenimiento de vehículos,True
+esp_591210,591,591210,"Máquinas, servicios de producción",True
+esp_591211,591,591211,Mecanizado y mantenimiento de máquinas,True
+esp_591212,591,591212,Oficina de proyectos de construcción,True
+esp_591213,591,591213,Oficina de proyectos de fabricación mecánica,True
+esp_591214,591,591214,Operaciones y equipos de elaboración de productos alimentarios,True
+esp_591215,591,591215,Operaciones de procesos,True
+esp_591216,591,591216,Operaciones de producción agraria,True
+esp_591217,591,591217,Patronaje y confección,True
+esp_591218,591,591218,Peluquería,True
+esp_591219,591,591219,Procedimiento de diagnóstico clínico y ortoprotésico,True
+esp_591220,591,591220,Procedimiento sanitarios y asistenciales,True
+esp_591221,591,591221,Procesos comerciales,True
+esp_591222,591,591222,Procesos de gestión administrativa,True
+esp_591223,591,591223,Producción de artes gráficas,True
+esp_591224,591,591224,Producción textil y tratamiento físico-químicos,True
+esp_591225,591,591225,Servicios a la comunidad,True
+esp_591226,591,591226,Servicios de restauración,True
+esp_591227,591,591227,Sistemas y aplicaciones informáticas,True
+esp_591228,591,591228,Soldadura,True
+esp_591229,591,591229,Técnicas y procedimientos de imagen y sonido,True
+esp_592001,592,592001,Alemán,True
+esp_592002,592,592002,Árabe,True
+esp_592003,592,592003,Catalán,True
+esp_592004,592,592004,Chino,True
+esp_592005,592,592005,Danés,True
+esp_592006,592,592006,Español para extranjeros,True
+esp_592007,592,592007,Euskera,True
+esp_592008,592,592008,Francés,True
+esp_592009,592,592009,Gallego,True
+esp_592010,592,592010,Griego,True
+esp_592011,592,592011,Inglés,True
+esp_592012,592,592012,Italiano,True
+esp_592013,592,592013,Japonés,True
+esp_592014,592,592014,Neerlandés,True
+esp_592015,592,592015,Portuguès,True
+esp_592016,592,592016,Rumano,True
+esp_592017,592,592017,Ruso,True
+esp_594001,594,594001,Acordeón,True
+esp_594002,594,594002,Armonía y melodía acompañada,True
+esp_594003,594,594003,Ballet clásico,True
+esp_594004,594,594004,Canto,True
+esp_594005,594,594005,Canto aplicado al arte dramático,True
+esp_594006,594,594006,Caracterización,True
+esp_594007,594,594007,Clarinete,True
+esp_594008,594,594008,Composición e instrumentación,True
+esp_594009,594,594009,Conjunto coral e instrumental,True
+esp_594010,594,594010,Contrabajo,True
+esp_594011,594,594011,Contrapunto,True
+esp_594012,594,594012,Coreografía,True
+esp_594013,594,594013,Danza española,True
+esp_594014,594,594014,Dirección de coros y conjunto coral,True
+esp_594015,594,594015,Dirección de orquesta y conjunto instrumental,True
+esp_594016,594,594016,Dramaturgia,True
+esp_594017,594,594017,Elementos de acústica,True
+esp_594018,594,594018,Escena lírica,True
+esp_594019,594,594019,"Estética e historia de la música, la cultura y el arte",True
+esp_594020,594,594020,Expresión corporal,True
+esp_594021,594,594021,Fagot,True
+esp_594022,594,594022,Figurinismo,True
+esp_594023,594,594023,Flauta travesera,True
+esp_594024,594,594024,Flauta pico,True
+esp_594025,594,594025,Formas musicales,True
+esp_594026,594,594026,Guitarra,True
+esp_594027,594,594027,Guitarrista acompañante (flamenco),True
+esp_594028,594,594028,Historia de la danza,True
+esp_594029,594,594029,Historia de la cultura y del arte,True
+esp_594030,594,594030,Historia de la literatura dramática,True
+esp_594031,594,594031,Instrumentos de púa,True
+esp_594035,594,594035,Iniciación musical,True
+esp_594036,594,594036,Interpretación,True
+esp_594037,594,594037,Lectura musical,True
+esp_594039,594,594039,Música de cámara,True
+esp_594042,594,594042,Oboe,True
+esp_594043,594,594043,Órgano,True
+esp_594044,594,594044,Ortofonía y dicción,True
+esp_594045,594,594045,Percusión,True
+esp_594046,594,594046,Piano,True
+esp_594047,594,594047,Piano aplicado,True
+esp_594048,594,594048,Pianista acompañante (canto),True
+esp_594049,594,594049,Rítmica y paleografía,True
+esp_594050,594,594050,"Repentización, transposición instrumental y acompañamiento",True
+esp_594051,594,594051,Repertorio de ópera y oratorio,True
+esp_594052,594,594052,Saxofón,True
+esp_594053,594,594053,Solfeo y teoría de la música,True
+esp_594054,594,594054,Técnica de canto,True
+esp_594055,594,594055,Trombón,True
+esp_594056,594,594056,Trombón–tuba,True
+esp_594057,594,594057,Trompa,True
+esp_594058,594,594058,Trompeta,True
+esp_594059,594,594059,Tuba,True
+esp_594060,594,594060,Viola,True
+esp_594061,594,594061,Violín,True
+esp_594062,594,594062,Violinista acompañante,True
+esp_594063,594,594063,Violoncello,True
+esp_594064,594,594064,Pianista acompañante (instrumentos),True
+esp_594065,594,594065,Pianista acompañante (danza),True
+esp_594066,594,594066,Clavecinista acompañante,True
+esp_594073,594,594073,Conjunto coral,True
+esp_594074,594,594074,Dirección de escena,True
+esp_594075,594,594075,Escenografía,True
+esp_594076,594,594076,Esgrima,True
+esp_594078,594,594078,Folklore,True
+esp_594080,594,594080,Indumentaria,True
+esp_594083,594,594083,Pedagogía musical,True
+esp_594088,594,594088,Arpa,True
+esp_594089,594,594089,Repertorio vocal,True
+esp_594090,594,594090,Clave,True
+esp_595001,595,595001,Adorno y figura,True
+esp_595002,595,595002,Alfarería,True
+esp_595003,595,595003,Arqueología,True
+esp_595004,595,595004,Composición ornamental,True
+esp_595005,595,595005,Decoración sobre pastas cerámicas,True
+esp_595006,595,595006,Derecho usual y nociones de contabilidad y correspondencia comercial,True
+esp_595008,595,595008,Dibujo arqueológico,True
+esp_595009,595,595009,Dibujo artístico,True
+esp_595010,595,595010,Dibujo lineal,True
+esp_595011,595,595011,Física y química aplicadas a la restauración,True
+esp_595013,595,595013,Historia del arte,True
+esp_595014,595,595014,Historia y técnicas del libro,True
+esp_595015,595,595015,Manufactura cerámica,True
+esp_595016,595,595016,Matemáticas,True
+esp_595018,595,595018,Modelado y vaciado,True
+esp_595019,595,595019,Moldeaje de figuras,True
+esp_595020,595,595020,Modelos y vajillería en escayola,True
+esp_595021,595,595021,Procedimientos de ilustración del libro,True
+esp_595022,595,595022,Proyectos de arte decorativo,True
+esp_595023,595,595023,Química aplicada a la cerámica,True
+esp_595024,595,595024,Restauración del libro,True
+esp_595025,595,595025,Restauración de obras escultóricas,True
+esp_595026,595,595026,Restauración técnicas arqueológicas,True
+esp_595027,595,595027,Restauración y técnicas pictóricas,True
+esp_595029,595,595029,Taquigrafía,True
+esp_595030,595,595030,Taquimecanografía,True
+esp_595031,595,595031,Técnica segoviana,True
+esp_595032,595,595032,Técnica talaverana,True
+esp_595033,595,595033,Técnicas audiovisuales,True
+esp_595034,595,595034,Técnicas de diseño gráfico,True
+esp_595035,595,595035,Técnicas gráficas industriales,True
+esp_595036,595,595036,Tecnología química y textil,True
+esp_595037,595,595037,Teoría práctica de diseño,True
+esp_595038,595,595038,Tecnología y proyectos de bisutería y joyería,True
+esp_595039,595,595039,Elementos constructivos,True
+esp_595065,595,595065,Teoría y práctica de la fotografía,True
+esp_595068,595,595068,Cerámica aplicada a la decoración,True
+esp_595070,595,595070,Dibujo y técnicas pictóricas,True
+esp_595072,595,595072,Encuadernación,True
+esp_595075,595,595075,Fotografía aplicada a la restauración,True
+esp_595080,595,595080,Técnicas de colorido aplicado a la cerámica,True
+esp_595083,595,595083,Diseño asistido por ordenador,True
+esp_595084,595,595084,Técnicas murales,True
+esp_595085,595,595085,Restauración arqueológica,True
+esp_596001,596,596001,Alfarería,True
+esp_596002,596,596002,Alfombras,True
+esp_596004,596,596004,Bordados y encajes,True
+esp_596005,596,596005,Calcografía y xilografía,True
+esp_596006,596,596006,Cerámica artística,True
+esp_596007,596,596007,Corte y confección,True
+esp_596008,596,596008,Decoración,True
+esp_596009,596,596009,Decoración cerámica,True
+esp_596010,596,596010,Decoración sobre loza,True
+esp_596011,596,596011,Decoración sobre porcelana,True
+esp_596012,596,596012,Delineación,True
+esp_596013,596,596013,Dibujo publicitario,True
+esp_596014,596,596014,Diseño industrial,True
+esp_596015,596,596015,Diseño de figurines,True
+esp_596016,596,596016,Dorado y policromía,True
+esp_596017,596,596017,Ebanistería,True
+esp_596018,596,596018,Ebanistería y marquetería,True
+esp_596019,596,596019,Encuadernación,True
+esp_596020,596,596020,Esgrafiado,True
+esp_596021,596,596021,Esmaltes,True
+esp_596022,596,596022,Estampado textil,True
+esp_596023,596,596023,Forja artística,True
+esp_596024,596,596024,Forja y cerrajería,True
+esp_596025,596,596025,Fotograbado,True
+esp_596026,596,596026,Fotograbado y tipografía,True
+esp_596027,596,596027,Fotografía artística,True
+esp_596028,596,596028,Fotografía y procesos de reproducción,True
+esp_596029,596,596029,Grabado,True
+esp_596031,596,596031,Hornos,True
+esp_596032,596,596032,Investigación materias primas cerámicas,True
+esp_596035,596,596035,Labrado y repujado en cuero,True
+esp_596036,596,596036,Litografía,True
+esp_596038,596,596038,Loza y porcelana,True
+esp_596040,596,596040,Matricería,True
+esp_596041,596,596041,Metalistería,True
+esp_596043,596,596043,Modelismo y maquetismo,True
+esp_596044,596,596044,Moldes y reproducciones,True
+esp_596045,596,596045,Mosaicos romanos,True
+esp_596046,596,596046,Muñequería artística,True
+esp_596047,596,596047,Orfebrería,True
+esp_596048,596,596048,Pastas y hornos,True
+esp_596049,596,596049,"Patronaje, escalado y técnicas de confección",True
+esp_596050,596,596050,Química aplicada a la cerámica,True
+esp_596051,596,596051,Repujado en cuero,True
+esp_596052,596,596052,Repujado en metal,True
+esp_596053,596,596053,Restauración de dibujos y grabados,True
+esp_596054,596,596054,Restauración de encuadernaciones,True
+esp_596055,596,596055,Restauración de manuscritos e impresos,True
+esp_596056,596,596056,Restauración de tapices,True
+esp_596058,596,596058,Talla en madera,True
+esp_596059,596,596059,Talla en piedra,True
+esp_596060,596,596060,Talla en piedra y madera,True
+esp_596061,596,596061,Tapices y alfombras,True
+esp_596062,596,596062,Taquimecanografía,True
+esp_596063,596,596063,Técnicas de joyería,True
+esp_596064,596,596064,Textiles artísticos,True
+esp_596065,596,596065,Vaciado y moldeado,True
+esp_596066,596,596066,Vidrieras artísticas,True
+esp_596069,596,596069,Restauración cerámica,True
+esp_596070,596,596070,Técnicas de diseño industrial,True
+esp_596093,596,596093,Figurines,True
+esp_596095,596,596095,Restauración,True
+esp_596097,596,596097,Serigrafía,True
+esp_596107,596,596107,Diseño gráfico asistido por ordenador,True
+esp_596108,596,596108,Reproducción e impresión,True
+esp_596109,596,596109,Cerrajería y forja,True
+esp_596115,596,596115,Imaginería castellana,True
+esp_596117,596,596117,Metalistería (damasquinado),True
+esp_597PT,597,597PT,Pedagogía terapéutica,True
+esp_597AL,597,597AL,Audición y lenguaje,True
+esp_597EI,597,597EI,Educación infantil,True
+esp_597FI,597,597FI,Idioma extranjero: inglés,True
+esp_597EF,597,597EF,Educación física,True
+esp_597MU,597,597MU,Música,True
