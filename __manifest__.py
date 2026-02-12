@@ -19,7 +19,7 @@ Este módulo engade como modelos aos Centros Educativos e aos Afiliados así com
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'account'],
 
     # always loaded
     'data': [

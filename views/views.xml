@@ -253,7 +253,6 @@
               <field name="data_alta"/>
               <field name="data_baixa"/>
               <field name="sede"/>
-              <field name="tipo_cota_id"/>
             </group>
           </group>
 
@@ -283,6 +282,25 @@
                 <field name="situacion_laboral"/>
               </group>
             </page>
+
+            <page string="Cotas">
+              <group>
+                <group string="Tipo de cota">
+                  <field name="tipo_cota_id"/>
+                </group>
+              </group>
+
+              <separator string="Conta bancaria"/>
+
+              <field name="bank_ids" nolabel="1">
+                <list editable="bottom" create="1" delete="1">
+                  <field name="acc_number" string="IBAN"/>
+                  <field name="acc_holder_name" string="Titular"/>
+                  <field name="bank_id" string="Banco"/>
+                </list>
+              </field>
+            </page>
+
 
             <page string="Notas">
               <field name="comment" placeholder="Observacións..." nolabel="1"/>
