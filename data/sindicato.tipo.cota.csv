@@ -1,0 +1,4 @@
+id,nome,activo
+cota_1,Cota Completa (Tipo 1),True
+cota_2,Cota Parcial (Tipo 2),True
+cota_3,Cota Mocidade,True
