@@ -1,0 +1,15 @@
+<odoo>
+    <!-- Grupo básico -->
+    <record id="group_sindicato_basico" model="res.groups">
+        <field name="name">Sindicato - Xestión básica</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Grupo completo -->
+    <record id="group_sindicato_admin" model="res.groups">
+        <field name="name">Sindicato - Xestión completa</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('group_sindicato_basico'))]"/>
+    </record>
+</odoo>

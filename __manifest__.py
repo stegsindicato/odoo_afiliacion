@@ -23,7 +23,8 @@ Este módulo engade como modelos aos Centros Educativos e aos Afiliados así com
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
         'data/sindicato.especialidade.csv',

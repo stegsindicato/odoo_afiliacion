@@ -1,2 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_steg_afiliacion_steg_afiliacion,steg_afiliacion.steg_afiliacion,model_steg_afiliacion_steg_afiliacion,base.group_user,1,1,1,1
+access_partner_basico,res.partner basico,base.model_res_partner,steg_afiliacion.group_sindicato_basico,1,0,0,0
+access_partner_admin,res.partner admin,base.model_res_partner,steg_afiliacion.group_sindicato_admin,1,1,1,1
+access_especialidade_admin,especialidade admin,model_sindicato_especialidade,steg_afiliacion.group_sindicato_admin,1,1,1,1
+access_tipo_cota_admin,tipo cota admin,model_sindicato_tipo_cota,steg_afiliacion.group_sindicato_admin,1,1,1,1
+access_mail_message_basico,mail.message basico,mail.model_mail_message,steg_afiliacion.group_sindicato_basico,1,1,1,0
+access_mail_activity_basico,mail.activity basico,mail.model_mail_activity,steg_afiliacion.group_sindicato_basico,1,1,1,1
