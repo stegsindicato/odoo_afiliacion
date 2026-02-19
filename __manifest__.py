@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "steg_afiliacion",
+    'name': "STEG: Centros e Afiliación",
 
     'summary': "Este módulo engade como modelos aos Centros Educativos e aos Afiliados.",
 
@@ -19,7 +19,7 @@ Este módulo engade como modelos aos Centros Educativos e aos Afiliados así com
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'partner_firstname', 'partner_contact_birthdate'],
 
     # always loaded
     'data': [

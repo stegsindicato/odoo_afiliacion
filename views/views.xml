@@ -242,10 +242,13 @@
 
           <group>
             <group string="Identificación">
+              <field name="firstname"/>
+              <field name="lastname"/>
               <field name="dni"/>
               <field name="numero_afiliado"/>
               <field name="xenero"/>
-              <field name="data_nacemento"/>
+              <field name="birthdate_date"/>
+              <field name="age"/>
             </group>
 
             <group string="Afiliación">

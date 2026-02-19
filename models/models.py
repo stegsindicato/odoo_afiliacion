@@ -30,8 +30,6 @@ class ResPartner(models.Model):
         string="Xénero",
     )
 
-    data_nacemento = fields.Date(string="Data de nacemento")
-
     sede = fields.Selection(
         [
             ("coruna", "A Coruña"),
