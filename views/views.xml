@@ -9,7 +9,7 @@
     <field name="name">res.partner.search.afiliado</field>
     <field name="model">res.partner</field>
     <field name="arch" type="xml">
-      <search string="Buscar afiliados">
+      <search string="Buscar afiliación">
         <field name="name"/>
         <field name="dni"/>
         <field name="numero_afiliado"/>
@@ -58,7 +58,7 @@
        ========================================================= -->
 
   <record id="action_sindicato_afiliados" model="ir.actions.act_window">
-    <field name="name">Afiliados</field>
+    <field name="name">Afiliación</field>
     <field name="res_model">res.partner</field>
     <field name="view_mode">kanban,list,form</field>
     <field name="domain">[('e_afiliado','=',True)]</field>
@@ -76,7 +76,7 @@
   </record>
 
   <menuitem id="menu_sindicato_root" name="Afiliación e Centros" sequence="10"/>
-  <menuitem id="menu_sindicato_afiliados" name="Afiliados" parent="menu_sindicato_root"
+  <menuitem id="menu_sindicato_afiliados" name="Afiliación" parent="menu_sindicato_root"
             action="action_sindicato_afiliados" sequence="10"/>
   <menuitem id="menu_sindicato_centros" name="Centros educativos" parent="menu_sindicato_root"
             action="action_sindicato_centros" sequence="20"/>
@@ -305,7 +305,7 @@
             </page>
 
 
-            <page string="Notas">
+            <page string="Anotacións">
               <field name="comment" placeholder="Observacións..." nolabel="1"/>
             </page>
           </notebook>
@@ -394,7 +394,7 @@
 
 
 
-            <page string="Notas">
+            <page string="Anotacións">
               <field name="comment" placeholder="Observacións..." nolabel="1"/>
             </page>
 
