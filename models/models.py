@@ -56,8 +56,9 @@ class ResPartner(models.Model):
         [
             ("paro", "Paro"),
             ("provisional", "Provisional"),
-            ("interino", "Interino"),
-            ("definitivo", "Definitivo"),
+            ("interino", "Interino/a - Substituto/a"),
+            ("definitivo", "Definitivo/a"),
+            ("xubilado", "Xubilado/a")
         ],
         string="Situación laboral",
         index=True,
