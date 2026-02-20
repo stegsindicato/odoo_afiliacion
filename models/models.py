@@ -148,6 +148,9 @@ class SindicatoEspecialidade(models.Model):
             ("595", "595 · Corpo de Profesores de Artes Plásticas e Deseño"),
             ("596", "596 · Corpo de Mestres de Taller de Artes Plásticas e Deseño"),
             ("597", "597 · Corpo de Mestres"),
+            ("598", "598 · Corpo de Profesores Especialistas en Sectores Singulares de Formación Profesional"),
+            ("510", "510 · Corpo de Inspectores"),
+            ("---", "--- · Outros")
         ],
         string="Corpo",
         required=True,

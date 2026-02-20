@@ -287,9 +287,13 @@ esp_596108,596,596108,Reproducción e impresión,True
 esp_596109,596,596109,Cerrajería y forja,True
 esp_596115,596,596115,Imaginería castellana,True
 esp_596117,596,596117,Metalistería (damasquinado),True
-esp_597PT,597,597PT,Pedagogía terapéutica,True
-esp_597AL,597,597AL,Audición y lenguaje,True
-esp_597EI,597,597EI,Educación infantil,True
-esp_597FI,597,597FI,Idioma extranjero: inglés,True
-esp_597EF,597,597EF,Educación física,True
-esp_597MU,597,597MU,Música,True
+esp_597036,597,597036,Pedagogía terapéutica,True
+esp_597037,597,597037,Audición y lenguaje,True
+esp_597031,597,597031,Educación infantil,True
+esp_597032,597,597032,Idioma extranjero: inglés,True
+esp_597034,597,597034,Educación física,True
+esp_597035,597,597036,Música,True
+esp_597038,597,597038,Educación Primaria,True
+esp_597033,597,597033,Idioma extranjero: francés,True
+esp_510001,510,510001,Inspección Educativa,True
+esp_597039,597,597039,Orientación Educativa,True
