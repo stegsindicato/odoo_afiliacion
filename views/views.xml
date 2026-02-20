@@ -281,7 +281,7 @@
             <page string="Profesional">
               <group>
                 <field name="especialidade_id"/>
-                <field name="centro_traballo_id" domain="[('e_centro_educativo','=',True)]"/>
+                <field name="centro_traballo_id" context="{'form_view_ref': 'steg_afiliacion.view_partner_form_centro'}" domain="[('e_centro_educativo','=',True)]"/>
                 <field name="situacion_laboral"/>
               </group>
             </page>
@@ -345,7 +345,8 @@
             <page string="Afiliados">
               <field name="afiliados_ids" nolabel="1"
                      domain="[('e_afiliado','=',True)]"
-                     context="{'default_e_afiliado': True}">
+                     context="{'default_e_afiliado': True,
+                               'form_view_ref': 'steg_afiliacion.view_partner_form_afiliado'}">
                 <list string="Afiliados do centro" create="0" edit="0" delete="0">
                   <field name="name"/>
                   <field name="mobile"/>
