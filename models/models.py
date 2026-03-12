@@ -135,7 +135,7 @@ class SindicatoEspecialidade(models.Model):
     _name = "sindicato.especialidade"
     _description = "Especialidade docente"
     _order = "corpo, nome"
-    _rec_name = "nome"
+    _rec_name = "nome_completo"
 
     nome = fields.Char(string="Nome da especialidade", required=True, translate=True)
 
@@ -163,8 +163,20 @@ class SindicatoEspecialidade(models.Model):
         index=True,
     )
 
+    nome_completo = fields.Char(
+        string="Nome Completo",
+        compute="_compute_nome_completo",
+        store=False,
+    )
+
     activo = fields.Boolean(string="Activo", default=True)
 
+    @api.depends("nome", "codigo_oficial")
+    def _compute_nome_completo(self):
+        for rex in self:
+            nome = rex.nome
+            codigo = rex.codigo_oficial
+            rex.nome_completo = f"{nome} ({codigo})"
 
 # =========================
 # Tipos de cota
