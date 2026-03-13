@@ -187,4 +187,5 @@ class SindicatoTipoCota(models.Model):
     _rec_name = "nome"
 
     nome = fields.Char(string="Nome", required=True, translate=True)
+    cantidade = fields.Float(string="Cantidade", required=True)
     activo = fields.Boolean(string="Activo", default=True)

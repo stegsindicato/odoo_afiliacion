@@ -484,6 +484,7 @@
     <field name="arch" type="xml">
       <list string="Tipos de cota">
         <field name="nome"/>
+        <field name="cantidade"/>
         <field name="activo"/>
       </list>
     </field>
@@ -497,6 +498,7 @@
         <sheet>
           <group>
             <field name="nome"/>
+            <field name="cantidade"/>
             <field name="activo"/>
           </group>
         </sheet>
