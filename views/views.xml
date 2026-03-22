@@ -255,6 +255,7 @@
               <field name="afiliacion_activa" readonly="1"/>
               <field name="data_alta"/>
               <field name="data_baixa"/>
+              <field name="anos_afiliacion" readonly="1"/>
               <field name="sede"/>
             </group>
           </group>

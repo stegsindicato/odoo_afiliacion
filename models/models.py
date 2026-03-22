@@ -21,6 +21,31 @@ class ResPartner(models.Model):
     data_alta = fields.Date(string="Data de alta")
     data_baixa = fields.Date(string="Data de baixa")
 
+    anos_afiliacion = fields.Integer(
+        string="Antiguedade afiliación (anos)",
+        compute="_compute_anos_afiliacion",
+        store=True,
+    )
+
+    @api.depends("data_alta", "data_baixa", "e_afiliado")
+    def _compute_anos_afiliacion(self):
+        hoxe = fields.Date.today()
+        for rex in self:
+            rex.anos_afiliacion = 0
+
+            if not rex.e_afiliado or not rex.data_alta:
+                continue
+
+            data_fin = rex.data_baixa or hoxe
+            if data_fin < rex.data_alta:
+                continue
+
+            anos = data_fin.year - rex.data_alta.year
+            if (data_fin.month, data_fin.day) < (rex.data_alta.month, rex.data_alta.day):
+                anos -= 1
+
+            rex.anos_afiliacion = max(anos, 0)
+
     xenero = fields.Selection(
         [
             ("home", "Home"),
