@@ -56,7 +56,8 @@ class ResPartner(models.Model):
         [
             ("paro", "Paro"),
             ("provisional", "Provisional"),
-            ("interino", "Interino/a - Substituto/a"),
+            ("interino", "Interino/a"),
+            ("substituto", "Substituto/a"),
             ("definitivo", "Definitivo/a"),
             ("xubilado", "Xubilado/a")
         ],
