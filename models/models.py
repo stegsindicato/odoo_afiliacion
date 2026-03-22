@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
 from urllib.parse import quote_plus
+from odoo.osv import expression
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -136,7 +137,7 @@ class SindicatoEspecialidade(models.Model):
     _name = "sindicato.especialidade"
     _description = "Especialidade docente"
     _order = "corpo, nome"
-    _rec_name = "nome_completo"
+    _rec_name = "nome"
 
     nome = fields.Char(string="Nome da especialidade", required=True, translate=True)
 
@@ -158,26 +159,28 @@ class SindicatoEspecialidade(models.Model):
         index=True,
     )
 
+    activo = fields.Boolean(string="Activo", default=True)
+
     codigo_oficial = fields.Char(
         string="Código oficial",
         help="Código da especialidade segundo a normativa (ex. 006, 107, etc.)",
         index=True,
     )
 
-    nome_completo = fields.Char(
-        string="Nome Completo",
-        compute="_compute_nome_completo",
-        store=False,
-    )
+    @api.model
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        args = args or []
+        domain = []
 
-    activo = fields.Boolean(string="Activo", default=True)
+        if name:
+            domain = expression.OR([
+                [("nome", operator, name)],
+                [("codigo_oficial", operator, name)],
+                [("corpo", operator, name)],
+            ])
 
-    @api.depends("nome", "codigo_oficial")
-    def _compute_nome_completo(self):
-        for rex in self:
-            nome = rex.nome
-            codigo = rex.codigo_oficial
-            rex.nome_completo = f"{nome} ({codigo})"
+        records = self.search(expression.AND([args, domain]), limit=limit)
+        return [(r.id, r.display_name) for r in records]
 
 # =========================
 # Tipos de cota
