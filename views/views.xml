@@ -75,6 +75,11 @@
     <field name="search_view_id" ref="view_partner_search_centro"/>
   </record>
 
+  <!-- Sobreescribe o domionio do menú contactos para que non amose centros, nin afiliados. -->
+  <record id="contacts.action_contacts" model="ir.actions.act_window">
+    <field name="domain">[('e_afiliado', '=', False), ('e_centro_educativo', '=', False)]</field>
+  </record>
+
   <menuitem id="menu_sindicato_root" name="Afiliación e Centros" sequence="1" web_icon="steg_afiliacion,static/description/icon.png"/>
   <menuitem id="menu_sindicato_afiliados" name="Afiliación" parent="menu_sindicato_root"
             action="action_sindicato_afiliados" sequence="10"/>
