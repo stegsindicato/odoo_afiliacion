@@ -5,3 +5,5 @@ access_especialidade_admin,especialidade admin,model_sindicato_especialidade,ste
 access_tipo_cota_admin,tipo cota admin,model_sindicato_tipo_cota,steg_afiliacion.group_sindicato_admin,1,1,1,1
 access_mail_message_basico,mail.message basico,mail.model_mail_message,steg_afiliacion.group_sindicato_basico,1,1,1,0
 access_mail_activity_basico,mail.activity basico,mail.model_mail_activity,steg_afiliacion.group_sindicato_basico,1,1,1,1
+access_afiliado_historial_basico,sindicato.afiliado.historial basico,model_sindicato_afiliado_historial,steg_afiliacion.group_sindicato_basico,1,0,0,0
+access_afiliado_historial_admin,sindicato.afiliado.historial admin,model_sindicato_afiliado_historial,steg_afiliacion.group_sindicato_admin,1,1,1,1

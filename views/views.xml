@@ -2,7 +2,7 @@
 <odoo>
 
   <!-- =========================================================
-       SEARCH VIEWS (primeiro, para que as accións poidan referenciar)
+       SEARCH VIEWS
        ========================================================= -->
 
   <record id="view_partner_search_afiliado" model="ir.ui.view">
@@ -75,21 +75,35 @@
     <field name="search_view_id" ref="view_partner_search_centro"/>
   </record>
 
-  <!-- Sobreescribe o domionio do menú contactos para que non amose centros, nin afiliados. -->
+  <!-- Oculta afiliados e centros do menú estándar de contactos -->
   <record id="contacts.action_contacts" model="ir.actions.act_window">
     <field name="domain">[('e_afiliado', '=', False), ('e_centro_educativo', '=', False)]</field>
   </record>
 
-  <menuitem id="menu_sindicato_root" name="Afiliación e Centros" sequence="1" web_icon="steg_afiliacion,static/description/icon.png"/>
-  <menuitem id="menu_sindicato_afiliados" name="Afiliación" parent="menu_sindicato_root"
-            action="action_sindicato_afiliados" sequence="10"/>
-  <menuitem id="menu_sindicato_centros" name="Centros educativos" parent="menu_sindicato_root"
-            action="action_sindicato_centros" sequence="20"/>
+  <menuitem id="menu_sindicato_root"
+            name="Afiliación e Centros"
+            sequence="1"
+            web_icon="steg_afiliacion,static/description/icon.png"/>
 
-  <menuitem id="menu_sindicato_config" name="Configuración" parent="menu_sindicato_root" sequence="90"/>
+  <menuitem id="menu_sindicato_afiliados"
+            name="Afiliación"
+            parent="menu_sindicato_root"
+            action="action_sindicato_afiliados"
+            sequence="10"/>
+
+  <menuitem id="menu_sindicato_centros"
+            name="Centros educativos"
+            parent="menu_sindicato_root"
+            action="action_sindicato_centros"
+            sequence="20"/>
+
+  <menuitem id="menu_sindicato_config"
+            name="Configuración"
+            parent="menu_sindicato_root"
+            sequence="90"/>
 
   <!-- =========================================================
-       LISTAS (list)
+       LISTAS
        ========================================================= -->
 
   <record id="view_partner_list_afiliado" model="ir.ui.view">
@@ -128,316 +142,296 @@
   </record>
 
   <!-- =========================================================
-       KANBAN (list)
+       KANBAN
        ========================================================= -->
 
   <record id="view_partner_kanban_afiliado" model="ir.ui.view">
-  <field name="name">res.partner.kanban.afiliado</field>
-  <field name="model">res.partner</field>
-  <field name="priority">25</field>
-  <field name="arch" type="xml">
-    <kanban class="o_kanban_small_column">
-      <!-- Campos usados -->
-      <field name="name"/>
-      <field name="centro_traballo_id"/>
-      <field name="especialidade_id"/>
-      <field name="situacion_laboral"/>
+    <field name="name">res.partner.kanban.afiliado</field>
+    <field name="model">res.partner</field>
+    <field name="priority">25</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="name"/>
+        <field name="centro_traballo_id"/>
+        <field name="especialidade_id"/>
+        <field name="situacion_laboral"/>
 
-      <templates>
-        <t t-name="kanban-box">
-          <div class="o_kanban_record">
+        <templates>
+          <t t-name="kanban-box">
+            <div class="o_kanban_record">
+              <div class="o_kanban_record_title">
+                <strong><field name="name"/></strong>
+              </div>
 
-            <!-- Nome -->
-            <div class="o_kanban_record_title">
-              <strong>
-                <field name="name"/>
-              </strong>
+              <div class="mt-2" t-if="record.centro_traballo_id.value">
+                <span class="text-muted">Centro:</span>
+                <field name="centro_traballo_id"/>
+              </div>
+
+              <div t-if="record.especialidade_id.value">
+                <span class="text-muted">Especialidade:</span>
+                <field name="especialidade_id"/>
+              </div>
+
+              <div t-if="record.situacion_laboral.value">
+                <span class="text-muted">Situación:</span>
+                <field name="situacion_laboral"/>
+              </div>
             </div>
-
-            <!-- Centro de traballo -->
-            <div class="mt-2" t-if="record.centro_traballo_id.value">
-              <span class="text-muted">Centro:</span>
-              <field name="centro_traballo_id"/>
-            </div>
-
-            <!-- Especialidade -->
-            <div t-if="record.especialidade_id.value">
-              <span class="text-muted">Especialidade:</span>
-              <field name="especialidade_id"/>
-            </div>
-
-            <!-- Situación laboral -->
-            <div t-if="record.situacion_laboral.value">
-              <span class="text-muted">Situación:</span>
-              <field name="situacion_laboral"/>
-            </div>
-
-          </div>
-        </t>
-      </templates>
-    </kanban>
-  </field>
-</record>
-
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
 
   <record id="view_partner_kanban_centro" model="ir.ui.view">
-  <field name="name">res.partner.kanban.centro</field>
+    <field name="name">res.partner.kanban.centro</field>
+    <field name="model">res.partner</field>
+    <field name="priority">25</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_small_column">
+        <field name="name"/>
+        <field name="city"/>
+        <field name="state_id"/>
+
+        <templates>
+          <t t-name="kanban-box">
+            <div class="o_kanban_record">
+              <div class="o_kanban_record_title">
+                <strong><field name="name"/></strong>
+              </div>
+
+              <div class="mt-2" t-if="record.city.value">
+                <span class="text-muted">Localidade:</span>
+                <field name="city"/>
+              </div>
+
+              <div t-if="record.state_id.value">
+                <span class="text-muted">Provincia:</span>
+                <field name="state_id"/>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <!-- =========================================================
+       FORMULARIO UNIFICADO: HERDAMOS O PARTNER ESTÁNDAR
+       ========================================================= -->
+
+  <record id="view_partner_form_sindicato_inherit" model="ir.ui.view">
+  <field name="name">res.partner.form.sindicato.inherit</field>
   <field name="model">res.partner</field>
-  <field name="priority">25</field>
+  <field name="priority">90</field>
+  <field name="inherit_id" ref="base.view_partner_form"/>
   <field name="arch" type="xml">
-    <kanban class="o_kanban_small_column">
-      <!-- Campos usados -->
-      <field name="name"/>
-      <field name="city"/>
-      <field name="state_id"/>
 
-      <templates>
-        <t t-name="kanban-box">
-          <div class="o_kanban_record">
+    <!-- Campos usados en expresións -->
+    <xpath expr="//sheet" position="inside">
+      <group invisible="1">
+        <field name="e_afiliado"/>
+        <field name="e_centro_educativo"/>
+        <field name="afiliacion_activa"/>
+        <field name="ligazon_google_maps"/>
+        <field name="ligazon_osm"/>
+      </group>
+    </xpath>
 
-            <!-- Nome -->
-            <div class="o_kanban_record_title">
-              <strong>
-                <field name="name"/>
-              </strong>
-            </div>
+    <xpath expr="//span[@name='address_name']" position="before">
+  <field name="codigo_centro" invisible="not e_centro_educativo"/>
+</xpath>
 
-            <!-- Localidade -->
-            <div class="mt-2" t-if="record.city.value">
-              <span class="text-muted">Localidade:</span>
-              <field name="city"/>
-            </div>
+    <!-- Páxinas específicas -->
+<xpath expr="//page[@name='contact_addresses']" position="before">
+      <page string="Afiliación" invisible="not e_afiliado">
+        <group>
+          <group string="Identificación">
+            <field name="dni"/>
+            <field name="numero_afiliado"/>
+            <field name="xenero"/>
+            <field name="birthdate_date"/>
+            <field name="age" readonly="1"/>
+          </group>
 
-            <!-- Provincia -->
-            <div t-if="record.state_id.value">
-              <span class="text-muted">Provincia:</span>
-              <field name="state_id"/>
-            </div>
+          <group string="Datos de afiliación">
+            <field name="afiliacion_activa" readonly="1"/>
+            <field name="data_alta"/>
+            <field name="data_baixa"/>
+            <field name="anos_afiliacion" readonly="1"/>
+            <field name="sede"/>
+          </group>
+        </group>
+      </page>
 
+      <page string="Profesional" invisible="not e_afiliado">
+        <group>
+          <separator string="Situación Actual"/>
+          <field name="especialidade_id"/>
+          <field name="centro_traballo_id" domain="[('e_centro_educativo','=',True)]"/>
+          <field name="situacion_laboral"/>
+
+          <separator string="Historial profesional"/>
+          <field name="historial_profesional_ids" nolabel="1">
+            <list editable="bottom">
+              <field name="data_cambio"/>
+              <field name="centro_id"/>
+              <field name="especialidade_id"/>
+              <field name="situacion_laboral"/>
+              <field name="observacions"/>
+            </list>
+          </field>
+        </group>
+      </page>
+
+      <page string="Afiliados" invisible="not e_centro_educativo">
+        <field name="afiliados_ids" nolabel="1" domain="[('e_afiliado','=',True)]">
+          <list string="Afiliados do centro" create="0" edit="0" delete="0">
+            <field name="name"/>
+            <field name="mobile"/>
+            <field name="email"/>
+            <field name="situacion_laboral"/>
+            <field name="especialidade_id"/>
+          </list>
+        </field>
+      </page>
+
+      <page string="Xeolocalización" invisible="not e_centro_educativo">
+        <group string="Coordenadas" groups="base.group_system">
+          <field name="partner_latitude"/>
+          <field name="partner_longitude"/>
+        </group>
+
+        <group string="Ligazóns">
+          <field name="ligazon_google_maps" widget="url" readonly="1" invisible="not ligazon_google_maps"/>
+          <field name="ligazon_osm" widget="url" readonly="1" invisible="not ligazon_osm"/>
+
+          <div class="o_form_label" invisible="ligazon_google_maps or ligazon_osm">
+            (Non hai coordenadas GPS gardadas)
           </div>
-        </t>
-      </templates>
-    </kanban>
+        </group>
+      </page>
+
+    </xpath>
+
+    <!-- Engadir tipo de cota na páxina de contabilidade / contas -->
+    <xpath expr="//group[@name='banks']" position="after">
+      <group invisible="not e_afiliado" string="Afiliación">
+        <field name="tipo_cota_id"/>
+      </group>
+    </xpath>
+
   </field>
 </record>
 
+<record id="view_partner_form_sindicato_cleanup" model="ir.ui.view">
+  <field name="name">res.partner.form.sindicato.cleanup</field>
+  <field name="model">res.partner</field>
+  <field name="priority">95</field>
+  <field name="inherit_id" ref="base.view_partner_form"/>
+  <field name="arch" type="xml">
 
+    <!-- Campos técnicos para expresións -->
+    <xpath expr="//sheet" position="inside">
+      <group invisible="1">
+        <field name="e_afiliado"/>
+        <field name="e_centro_educativo"/>
+      </group>
+    </xpath>
 
-  <!-- =========================================================
-       FORMULARIOS (FORM)
-       ========================================================= -->
+    <!-- Ocultar pestaña Contacts & Addresses para afiliados y centros -->
+    <xpath expr="//page[@name='contact_addresses']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-  <record id="view_partner_form_afiliado" model="ir.ui.view">
-    <field name="name">res.partner.form.afiliado</field>
-    <field name="model">res.partner</field>
-    <field name="priority">30</field>
-    <field name="arch" type="xml">
-      <form string="Afiliado">
-        <sheet>
-          <group invisible="1">
-            <field name="e_afiliado"/>
-            <field name="e_centro_educativo"/>
-            <field name="company_type"/>
-            <field name="active"/>
-          </group>
+    <!-- Ocultar pestaña Sales & Purchase para afiliados y centros -->
+    <xpath expr="//page[@name='sales_purchases']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-          <div class="oe_title">
-            <h1><field name="name" placeholder="Nome e apelidos"/></h1>
-          </div>
+    <!-- Ocultar pestaña Facturación para centros -->
+    <xpath expr="//page[.//field[@name='bank_ids']]" position="attributes">
+      <attribute name="invisible">e_centro_educativo</attribute>
+    </xpath>
 
-          <group>
-            <group string="Identificación">
-              <field name="firstname"/>
-              <field name="lastname"/>
-              <field name="dni"/>
-              <field name="numero_afiliado"/>
-              <field name="xenero"/>
-              <field name="birthdate_date"/>
-              <field name="age"/>
-            </group>
+    <!-- Ocultar algunos campos estándar para afiliados -->
+    <xpath expr="//field[@name='function']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-            <group string="Afiliación">
-              <field name="afiliacion_activa" readonly="1"/>
-              <field name="data_alta"/>
-              <field name="data_baixa"/>
-              <field name="anos_afiliacion" readonly="1"/>
-              <field name="sede"/>
-            </group>
-          </group>
+    <xpath expr="//field[@name='parent_id']" position="attributes">
+      <attribute name="invisible">e_afiliado or is_company</attribute>
+    </xpath>
 
-          <notebook>
-            <page string="Contacto">
-              <group>
-                <group>
-                  <field name="phone"/>
-                  <field name="mobile"/>
-                  <field name="email"/>
-                </group>
-                <group string="Enderezo">
-                  <field name="street"/>
-                  <field name="street2"/>
-                  <field name="zip"/>
-                  <field name="city"/>
-                  <field name="state_id" options="{'no_open': True}"/>
-                  <field name="country_id" options="{'no_open': True}"/>
-                </group>
-              </group>
-            </page>
+    <xpath expr="//field[@name='website']" position="attributes">
+      <attribute name="invisible">e_afiliado</attribute>
+    </xpath>
 
-            <page string="Profesional">
-              <group>
-                <field name="especialidade_id"/>
-                <field name="centro_traballo_id" context="{'form_view_ref': 'steg_afiliacion.view_partner_form_centro'}" domain="[('e_centro_educativo','=',True)]"/>
-                <field name="situacion_laboral"/>
-              </group>
-            </page>
+    <xpath expr="//field[@name='title']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-            <page string="Cotas">
-              <group>
-                <group string="Tipo de cota">
-                  <field name="tipo_cota_id"/>
-                </group>
-              </group>
+    <xpath expr="//field[@name='vat']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-              <separator string="Conta bancaria"/>
+    <!-- OCULTAR GRUPOS DE FACTURACIÓN (ACCOUNTING) -->
 
-              <field name="bank_ids" nolabel="1">
-                <list editable="bottom" create="1" delete="1">
-                  <field name="acc_number" string="IBAN"/>
-                  <field name="acc_holder_name" string="Titular"/>
-                  <field name="bank_id" string="Banco"/>
-                </list>
-              </field>
-            </page>
+    <!-- Customer Invoices -->
+    <xpath expr="//group[@id='invoice_send_settings']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
+    <!-- Accounting Entries -->
+    <xpath expr="//group[@name='accounting_entries']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-            <page string="Anotacións">
-              <field name="comment" placeholder="Observacións..." nolabel="1"/>
-            </page>
-          </notebook>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <!-- Credit Limits -->
+    <xpath expr="//group[@name='credit_limits']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-  <record id="view_partner_form_centro" model="ir.ui.view">
-    <field name="name">res.partner.form.centro</field>
-    <field name="model">res.partner</field>
-    <field name="priority">30</field>
-    <field name="arch" type="xml">
-      <form string="Centro educativo">
-        <sheet>
-          <group invisible="1">
-            <field name="e_centro_educativo"/>
-            <field name="e_afiliado"/>
-            <field name="company_type"/>
-            <field name="active"/>
-          </group>
+    <!-- Automation -->
+    <xpath expr="//group[@name='accounting_automation']" position="attributes">
+      <attribute name="invisible">e_afiliado or e_centro_educativo</attribute>
+    </xpath>
 
-          <div class="oe_title">
-            <h1><field name="name" placeholder="Nome do centro"/></h1>
-          </div>
-
-          <group>
-            <group string="Datos do centro">
-              <field name="codigo_centro"/>
-              <field name="email"/>
-              <field name="phone"/>
-            </group>
-          </group>
-
-          <notebook>
-
-            <page string="Afiliados">
-              <field name="afiliados_ids" nolabel="1"
-                     domain="[('e_afiliado','=',True)]"
-                     context="{'default_e_afiliado': True,
-                               'form_view_ref': 'steg_afiliacion.view_partner_form_afiliado'}">
-                <list string="Afiliados do centro" create="0" edit="0" delete="0">
-                  <field name="name"/>
-                  <field name="mobile"/>
-                  <field name="email"/>
-                  <field name="situacion_laboral"/>
-                  <field name="especialidade_id"/>
-                </list>
-              </field>
-            </page>
-
-
-            <page string="Localización">
-
-              <!-- Enderezo -->
-              <group string="Enderezo">
-                <field name="street"/>
-                <field name="street2"/>
-                <field name="zip"/>
-                <field name="city"/>
-                <field name="state_id" options="{'no_open': True}"/>
-                <field name="country_id" options="{'no_open': True}"/>
-              </group>
-
-              <!-- Coordenadas: só admins -->
-              <group string="Coordenadas" groups="base.group_system">
-                <field name="partner_latitude"/>
-                <field name="partner_longitude"/>
-              </group>
-
-
-
-              <!-- Ligazóns -->
-              <group string="Ligazóns">
-                  <field name="ligazon_google_maps" widget="url" readonly="1"
-                         invisible="not ligazon_google_maps"/>
-                  <field name="ligazon_osm" widget="url" readonly="1"
-                         invisible="not ligazon_osm"/>
-
-                  <div class="o_form_label"
-                       invisible="ligazon_google_maps or ligazon_osm">
-                    (Non hai coordenadas GPS gardadas)
-                  </div>
-                </group>
-
-            </page>
-
-
-
-            <page string="Anotacións">
-              <field name="comment" placeholder="Observacións..." nolabel="1"/>
-            </page>
-
-          </notebook>
-        </sheet>
-      </form>
-    </field>
-  </record>
+  </field>
+</record>
 
   <!-- =========================================================
        VINCULAR VISTAS ÁS ACCIÓNS
        ========================================================= -->
 
-  <record id="action_sindicato_afiliados_view_list" model="ir.actions.act_window.view">
+  <record id="action_sindicato_afiliados_view_kanban" model="ir.actions.act_window.view">
     <field name="sequence" eval="1"/>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="view_partner_kanban_afiliado"/>
+    <field name="act_window_id" ref="action_sindicato_afiliados"/>
+  </record>
+
+  <record id="action_sindicato_afiliados_view_list" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
     <field name="view_mode">list</field>
     <field name="view_id" ref="view_partner_list_afiliado"/>
     <field name="act_window_id" ref="action_sindicato_afiliados"/>
   </record>
-  <record id="action_sindicato_afiliados_view_form" model="ir.actions.act_window.view">
-    <field name="sequence" eval="2"/>
-    <field name="view_mode">form</field>
-    <field name="view_id" ref="view_partner_form_afiliado"/>
-    <field name="act_window_id" ref="action_sindicato_afiliados"/>
+
+  <!-- Non fixamos unha vista form específica: usamos a herdada de res.partner -->
+
+  <record id="action_sindicato_centros_view_kanban" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="view_partner_kanban_centro"/>
+    <field name="act_window_id" ref="action_sindicato_centros"/>
   </record>
 
   <record id="action_sindicato_centros_view_list" model="ir.actions.act_window.view">
-    <field name="sequence" eval="1"/>
+    <field name="sequence" eval="2"/>
     <field name="view_mode">list</field>
     <field name="view_id" ref="view_partner_list_centro"/>
-    <field name="act_window_id" ref="action_sindicato_centros"/>
-  </record>
-  <record id="action_sindicato_centros_view_form" model="ir.actions.act_window.view">
-    <field name="sequence" eval="2"/>
-    <field name="view_mode">form</field>
-    <field name="view_id" ref="view_partner_form_centro"/>
     <field name="act_window_id" ref="action_sindicato_centros"/>
   </record>
 
@@ -481,8 +475,11 @@
     <field name="view_mode">list,form</field>
   </record>
 
-  <menuitem id="menu_sindicato_especialidades" name="Especialidades" parent="menu_sindicato_config"
-            action="action_especialidades" sequence="10"/>
+  <menuitem id="menu_sindicato_especialidades"
+            name="Especialidades"
+            parent="menu_sindicato_config"
+            action="action_especialidades"
+            sequence="10"/>
 
   <record id="view_tipo_cota_list" model="ir.ui.view">
     <field name="name">sindicato.tipo.cota.list</field>
@@ -518,7 +515,10 @@
     <field name="view_mode">list,form</field>
   </record>
 
-  <menuitem id="menu_sindicato_tipos_cota" name="Tipos de cota" parent="menu_sindicato_config"
-            action="action_tipos_cota" sequence="20"/>
+  <menuitem id="menu_sindicato_tipos_cota"
+            name="Tipos de cota"
+            parent="menu_sindicato_config"
+            action="action_tipos_cota"
+            sequence="20"/>
 
 </odoo>

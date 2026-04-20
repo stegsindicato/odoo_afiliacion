@@ -67,15 +67,24 @@ class ResPartner(models.Model):
         index=True,
     )
 
-    especialidade_id = fields.Many2one(
-        "sindicato.especialidade",
-        string="Especialidade",
+    historial_profesional_ids = fields.One2many(
+        "sindicato.afiliado.historial",
+        "partner_id",
+        string="Historial profesional",
     )
 
     centro_traballo_id = fields.Many2one(
         "res.partner",
         string="Centro de traballo",
-        domain="[('e_centro_educativo', '=', True)]",
+        compute="_compute_situacion_profesional_actual",
+        store=True,
+    )
+
+    especialidade_id = fields.Many2one(
+        "sindicato.especialidade",
+        string="Especialidade",
+        compute="_compute_situacion_profesional_actual",
+        store=True,
     )
 
     situacion_laboral = fields.Selection(
@@ -88,8 +97,38 @@ class ResPartner(models.Model):
             ("xubilado", "Xubilado/a")
         ],
         string="Situación laboral",
+        compute="_compute_situacion_profesional_actual",
+        store=True,
         index=True,
     )
+
+    @api.depends(
+        "historial_profesional_ids.data_cambio",
+        "historial_profesional_ids.centro_id",
+        "historial_profesional_ids.especialidade_id",
+        "historial_profesional_ids.situacion_laboral",
+    )
+    def _compute_situacion_profesional_actual(self):
+        hoxe = fields.Date.today()
+        data_min = fields.Date.to_date("1900-01-01")
+
+        for rex in self:
+            rex.centro_traballo_id = False
+            rex.especialidade_id = False
+            rex.situacion_laboral = False
+
+            historial_vixente = rex.historial_profesional_ids.filtered(
+                lambda r: r.data_cambio and r.data_cambio <= hoxe
+            ).sorted(
+                key=lambda r: (r.data_cambio or data_min, r.id),
+                reverse=True,
+            )
+
+            if historial_vixente:
+                ultimo = historial_vixente[0]
+                rex.centro_traballo_id = ultimo.centro_id
+                rex.especialidade_id = ultimo.especialidade_id
+                rex.situacion_laboral = ultimo.situacion_laboral
 
     tipo_cota_id = fields.Many2one(
         "sindicato.tipo.cota",
@@ -218,3 +257,68 @@ class SindicatoTipoCota(models.Model):
     nome = fields.Char(string="Nome", required=True, translate=True)
     cantidade = fields.Float(string="Cantidade", required=True)
     activo = fields.Boolean(string="Activo", default=True)
+
+
+# =========================
+# Historial profesional do afiliado
+# =========================
+class SindicatoAfiliadoHistorial(models.Model):
+    _name = "sindicato.afiliado.historial"
+    _description = "Historial profesional do afiliado"
+    _order = "data_cambio desc, id desc"
+
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Afiliado",
+        required=True,
+        ondelete="cascade",
+        index=True,
+    )
+
+    data_cambio = fields.Date(
+        string="Data do cambio",
+        required=True,
+        index=True,
+    )
+
+    centro_id = fields.Many2one(
+        "res.partner",
+        string="Centro",
+        domain="[('e_centro_educativo', '=', True)]",
+    )
+
+    especialidade_id = fields.Many2one(
+        "sindicato.especialidade",
+        string="Especialidade",
+    )
+
+    situacion_laboral = fields.Selection(
+        [
+            ("paro", "Paro"),
+            ("provisional", "Provisional"),
+            ("interino", "Interino/a"),
+            ("substituto", "Substituto/a"),
+            ("definitivo", "Definitivo/a"),
+            ("xubilado", "Xubilado/a")
+        ],
+        string="Situación laboral",
+        index=True,
+    )
+
+    observacions = fields.Text(string="Observacións")
+
+    @api.constrains("partner_id")
+    def _check_partner_is_afiliado(self):
+        for rex in self:
+            if rex.partner_id and not rex.partner_id.e_afiliado:
+                raise ValidationError(
+                    "O historial profesional só se pode asignar a afiliados."
+                )
+
+    @api.constrains("centro_id")
+    def _check_centro_is_centro_educativo(self):
+        for rex in self:
+            if rex.centro_id and not rex.centro_id.e_centro_educativo:
+                raise ValidationError(
+                    "O centro indicado debe ser un centro educativo."
+                )
