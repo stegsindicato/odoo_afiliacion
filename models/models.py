@@ -153,6 +153,11 @@ class ResPartner(models.Model):
                 rex.data_alta <= hoxe and (not rex.data_baixa or rex.data_baixa >= hoxe)
             )
 
+    @api.model
+    def cron_recompute_situacion_profesional(self):
+        afiliados = self.search([("e_afiliado", "=", True)])
+        afiliados._compute_situacion_profesional_actual()
+
     # =========================
     # Centro educativo
     # =========================

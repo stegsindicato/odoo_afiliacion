@@ -28,7 +28,8 @@ Este módulo engade como modelos aos Centros Educativos e aos Afiliados así com
         'views/views.xml',
         'views/templates.xml',
         'data/sindicato.especialidade.csv',
-        'data/sindicato.tipo.cota.csv'
+        'data/sindicato.tipo.cota.csv',
+        'data/cron.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
