@@ -1,0 +1,11 @@
+<odoo>
+  <record id="ir_cron_recompute_situacion_profesional" model="ir.cron">
+    <field name="name">Recalcular situación profesional afiliados</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="state">code</field>
+    <field name="code">model.cron_recompute_situacion_profesional()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="active">True</field>
+  </record>
+</odoo>
