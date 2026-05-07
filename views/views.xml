@@ -276,6 +276,7 @@
           <field name="historial_profesional_ids" nolabel="1">
             <list editable="bottom">
               <field name="data_cambio"/>
+              <field name="data_fin"/>
               <field name="centro_id"/>
               <field name="especialidade_id"/>
               <field name="situacion_laboral"/>

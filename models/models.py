@@ -104,6 +104,7 @@ class ResPartner(models.Model):
 
     @api.depends(
         "historial_profesional_ids.data_cambio",
+        "historial_profesional_ids.data_fin",
         "historial_profesional_ids.centro_id",
         "historial_profesional_ids.especialidade_id",
         "historial_profesional_ids.situacion_laboral",
@@ -118,9 +119,12 @@ class ResPartner(models.Model):
             rex.situacion_laboral = False
 
             historial_vixente = rex.historial_profesional_ids.filtered(
-                lambda r: r.data_cambio and r.data_cambio <= hoxe
+                lambda h:
+                h.data_cambio
+                and h.data_cambio <= hoxe
+                and (not h.data_fin or h.data_fin >= hoxe)
             ).sorted(
-                key=lambda r: (r.data_cambio or data_min, r.id),
+                key=lambda h: (h.data_cambio or data_min, h.id),
                 reverse=True,
             )
 
@@ -298,6 +302,12 @@ class SindicatoAfiliadoHistorial(models.Model):
         index=True,
     )
 
+    data_fin = fields.Date(
+        string="Data fin",
+        index=True,
+        help="Data ata a que está vixente esta situación. Se queda baleira, considérase indefinida.",
+    )
+
     centro_id = fields.Many2one(
         "res.partner",
         string="Centro",
@@ -316,7 +326,9 @@ class SindicatoAfiliadoHistorial(models.Model):
             ("interino", "Interino/a"),
             ("substituto", "Substituto/a"),
             ("definitivo", "Definitivo/a"),
-            ("xubilado", "Xubilado/a")
+            ("xubilado", "Xubilado/a"),
+            ("comision-non-fixo", "Comisión (non fixo)"),
+            ("comision-fixo", "Comisión (fixo)")
         ],
         string="Situación laboral",
         index=True,
@@ -339,3 +351,9 @@ class SindicatoAfiliadoHistorial(models.Model):
                 raise ValidationError(
                     "O centro indicado debe ser un centro educativo."
                 )
+
+    @api.constrains("data_cambio", "data_fin")
+    def _check_datas(self):
+        for rex in self:
+            if rex.data_cambio and rex.data_fin and rex.data_fin < rex.data_cambio:
+                raise ValidationError("A data fin non pode ser anterior á data do cambio.")
