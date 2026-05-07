@@ -163,12 +163,24 @@ class ResPartner(models.Model):
     # =========================
     codigo_centro = fields.Char(string="Código de centro", index=True)
 
-    afiliados_ids = fields.One2many(
+    afiliados_actuales_ids = fields.Many2many(
         comodel_name="res.partner",
-        inverse_name="centro_traballo_id",
-        string="Afiliados do centro",
-        domain=[("e_afiliado", "=", True)],
+        string="Afiliados actuais",
+        compute="_compute_afiliados_actuales_ids",
     )
+
+    def _compute_afiliados_actuales_ids(self):
+        Partner = self.env["res.partner"].with_context(active_test=False)
+
+        for centro in self:
+            if not centro.e_centro_educativo:
+                centro.afiliados_actuales_ids = False
+                continue
+
+            centro.afiliados_actuales_ids = Partner.search([
+                ("e_afiliado", "=", True),
+                ("centro_traballo_id", "=", centro.id),
+            ])
 
     ligazon_google_maps = fields.Char(
         string="Google Maps",
