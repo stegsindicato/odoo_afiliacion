@@ -522,4 +522,56 @@
             action="action_tipos_cota"
             sequence="20"/>
 
+  <!-- =========================================================
+     HISTORIAL PROFESIONAL
+     ========================================================= -->
+
+<record id="view_afiliado_historial_list" model="ir.ui.view">
+  <field name="name">sindicato.afiliado.historial.list</field>
+  <field name="model">sindicato.afiliado.historial</field>
+  <field name="arch" type="xml">
+    <list string="Historial profesional">
+      <field name="partner_id"/>
+      <field name="data_cambio"/>
+      <field name="data_fin"/>
+      <field name="centro_id"/>
+      <field name="especialidade_id"/>
+      <field name="situacion_laboral"/>
+      <field name="observacions"/>
+    </list>
+  </field>
+</record>
+
+<record id="view_afiliado_historial_form" model="ir.ui.view">
+  <field name="name">sindicato.afiliado.historial.form</field>
+  <field name="model">sindicato.afiliado.historial</field>
+  <field name="arch" type="xml">
+    <form string="Historial profesional">
+      <sheet>
+        <group>
+          <field name="partner_id" domain="[('e_afiliado','=',True)]"/>
+          <field name="data_cambio"/>
+          <field name="data_fin"/>
+          <field name="centro_id" domain="[('e_centro_educativo','=',True)]"/>
+          <field name="especialidade_id"/>
+          <field name="situacion_laboral"/>
+          <field name="observacions"/>
+        </group>
+      </sheet>
+    </form>
+  </field>
+</record>
+
+<record id="action_afiliado_historial" model="ir.actions.act_window">
+  <field name="name">Historial profesional</field>
+  <field name="res_model">sindicato.afiliado.historial</field>
+  <field name="view_mode">list,form</field>
+</record>
+
+<menuitem id="menu_sindicato_historial_profesional"
+          name="Historial profesional"
+          parent="menu_sindicato_config"
+          action="action_afiliado_historial"
+          sequence="30"/>
+
 </odoo>
