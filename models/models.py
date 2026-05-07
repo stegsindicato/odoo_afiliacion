@@ -94,7 +94,9 @@ class ResPartner(models.Model):
             ("interino", "Interino/a"),
             ("substituto", "Substituto/a"),
             ("definitivo", "Definitivo/a"),
-            ("xubilado", "Xubilado/a")
+            ("xubilado", "Xubilado/a"),
+            ("comision-non-fixo", "Comisión (non fixo)"),
+            ("comision-fixo", "Comisión (fixo)")
         ],
         string="Situación laboral",
         compute="_compute_situacion_profesional_actual",
