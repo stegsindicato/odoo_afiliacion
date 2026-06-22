@@ -61,8 +61,26 @@
     <field name="name">Afiliación</field>
     <field name="res_model">res.partner</field>
     <field name="view_mode">kanban,list,form</field>
-    <field name="domain">[('e_afiliado','=',True)]</field>
+      <field name="domain">[('e_afiliado','=',True), ('afiliacion_activa','=',True)]</field>
     <field name="context">{'default_e_afiliado': True, 'default_company_type': 'person'}</field>
+    <field name="search_view_id" ref="view_partner_search_afiliado"/>
+  </record>
+
+  <record id="action_sindicato_novas_altas" model="ir.actions.act_window">
+    <field name="name">Novas altas</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('e_afiliado','=',True), ('data_alta','=',False)]</field>
+    <field name="context">{'default_e_afiliado': True, 'default_company_type': 'person', 'form_view_initial_mode': 'readonly'}</field>
+    <field name="search_view_id" ref="view_partner_search_afiliado"/>
+  </record>
+
+  <record id="action_sindicato_baixas" model="ir.actions.act_window">
+    <field name="name">Baixas</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('e_afiliado','=',True), ('data_baixa','!=',False), ('afiliacion_activa','=',False)]</field>
+    <field name="context">{'default_e_afiliado': True, 'default_company_type': 'person', 'form_view_initial_mode': 'readonly'}</field>
     <field name="search_view_id" ref="view_partner_search_afiliado"/>
   </record>
 
@@ -101,6 +119,18 @@
             name="Configuración"
             parent="menu_sindicato_root"
             sequence="90"/>
+
+  <menuitem id="menu_sindicato_novas_altas"
+          name="Novas altas"
+          parent="menu_sindicato_config"
+          action="action_sindicato_novas_altas"
+          sequence="30"/>
+
+  <menuitem id="menu_sindicato_baixas"
+          name="Baixas"
+          parent="menu_sindicato_config"
+          action="action_sindicato_baixas"
+          sequence="40"/>
 
   <!-- =========================================================
        LISTAS
