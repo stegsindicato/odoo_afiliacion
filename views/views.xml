@@ -12,7 +12,6 @@
       <search string="Buscar afiliación">
         <field name="name"/>
         <field name="dni"/>
-        <field name="numero_afiliado"/>
         <field name="email"/>
         <field name="mobile"/>
         <field name="sede"/>
@@ -20,8 +19,10 @@
         <field name="centro_traballo_id"/>
         <field name="situacion_laboral"/>
 
-        <filter string="Só activos" name="f_activos" domain="[('afiliacion_activa','=',True)]"/>
-        <filter string="Só inactivos" name="f_inactivos" domain="[('afiliacion_activa','=',False)]"/>
+        <filter string="Sede A Coruña" name="f_corunha" domain="[('sede','=','coruna')]"/>
+        <filter string="Sede Lugo" name="f_lugo" domain="[('sede','=','lugo')]"/>
+        <filter string="Sede Ourense" name="f_ourense" domain="[('sede','=','ourense')]"/>
+        <filter string="Sede Pontevedra" name="f_pontevedra" domain="[('sede','=','pontevedra')]"/>
 
         <group expand="0" string="Agrupar por">
           <filter string="Sede" name="g_sede" context="{'group_by':'sede'}"/>
