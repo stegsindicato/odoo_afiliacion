@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 from markupsafe import Markup
+from datetime import datetime
 
 _logger = logging.getLogger(__name__)
 
@@ -27,6 +28,100 @@ class StegAfiliacionController(http.Controller):
                 max_number = max(max_number, int(value))
 
         return str(max_number + 1)
+
+    def _parse_birthdate(self, value):
+        value = (value or '').strip()
+
+        if not value:
+            return False
+
+        for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y"):
+            try:
+                return datetime.strptime(value, fmt).date().isoformat()
+            except ValueError:
+                continue
+
+        return False
+
+    def _get_sede(self, sede):
+        value = (sede or '').strip().upper()
+
+        mapping = {
+            'COR': 'coruna',
+            'PON': 'pontevedra',
+            'LUG': 'lugo',
+            'OUR': 'ourense',
+        }
+
+        return mapping.get(value, False)
+
+    def _get_state_and_country(self, provincia):
+        value = (provincia or '').strip().upper()
+
+        province_codes = {
+            'COR': 'ES-C',
+            'A CORUÑA': 'ES-C',
+            'LA CORUÑA': 'ES-C',
+
+            'LUG': 'ES-LU',
+            'LUGO': 'ES-LU',
+
+            'OUR': 'ES-OR',
+            'OURENSE': 'ES-OR',
+            'ORENSE': 'ES-OR',
+
+            'PON': 'ES-PO',
+            'PONTEVEDRA': 'ES-PO',
+        }
+
+        state_code = province_codes.get(value)
+
+        Country = request.env['res.country'].sudo()
+        State = request.env['res.country.state'].sudo()
+
+        spain = Country.search([
+            ('code', '=', 'ES')
+        ], limit=1)
+
+        state = False
+
+        if state_code:
+            state = State.search([
+                ('country_id.code', '=', 'ES'),
+                ('code', '=', state_code),
+            ], limit=1)
+
+        return (
+            state.id if state else False,
+            spain.id if spain else False,
+        )
+
+    def _infer_gender(self, firstname):
+        name = (firstname or '').strip().split(' ')[0].lower()
+
+        female_names = {
+            'maria', 'maría', 'ana', 'carmen', 'lucia', 'lucía',
+            'laura', 'sara', 'alba', 'irene', 'marta',
+            'paula', 'patricia', 'elena', 'isabel',
+            'beatriz', 'cristina', 'rosa', 'teresa',
+        }
+
+        male_names = {
+            'manuel', 'jose', 'josé', 'antonio',
+            'francisco', 'juan', 'pedro', 'miguel',
+            'david', 'pablo', 'diego', 'carlos',
+            'sergio', 'fernando', 'rubén', 'ruben',
+            'alberto', 'xoan', 'xoán', 'xose', 'xosé',
+        }
+
+        if name in female_names:
+            return 'muller'
+
+        if name in male_names:
+            return 'home'
+
+        return False
+
 
     def _build_form_texts(self, values):
         firstname = values.get('firstname', '')
@@ -242,6 +337,10 @@ class StegAfiliacionController(http.Controller):
             }
 
         numero_afiliado = self._get_next_numero_afiliado(Partner)
+        birthdate_value = self._parse_birthdate(birthdate)
+        sede_value = self._get_sede(sede)
+        state_id, country_id = self._get_state_and_country(provincia)
+        gender = self._infer_gender(firstname)
 
         vals = {
             'firstname': firstname,
@@ -255,9 +354,29 @@ class StegAfiliacionController(http.Controller):
             'city': city,
             'zip': zip_code,
             'e_afiliado': True,
+            'lang': 'gl_ES',
         }
 
+        if birthdate_value:
+            vals['birthdate_date'] = birthdate_value
+
+        if sede_value:
+            vals['sede'] = sede_value
+
+        if state_id:
+            vals['state_id'] = state_id
+
+        if country_id:
+            vals['country_id'] = country_id
+
+        if gender:
+            vals['xenero'] = gender
+
         partner = Partner.create(vals)
+
+        Mandate = request.env['account.banking.mandate'].sudo()
+
+        bank = False
 
         if iban:
             existing_bank = PartnerBank.search([
@@ -265,15 +384,49 @@ class StegAfiliacionController(http.Controller):
             ], limit=1)
 
             if not existing_bank:
-                PartnerBank.create({
+                bank = PartnerBank.create({
                     'partner_id': partner.id,
                     'acc_number': iban,
                 })
             else:
+                bank = existing_bank
                 partner.message_post(
                     body=Markup((
                         "Non se creou a conta bancaria porque xa existe unha conta "
                         f"co IBAN {iban} na base de datos."
+                    )),
+                    message_type='comment',
+                    subtype_xmlid='mail.mt_note',
+                    author_id=odoo_bot.id,
+                )
+
+        if bank:
+            existing_mandate = Mandate.search([
+                ('unique_mandate_reference', '=', dni),
+                ('company_id', '=', request.env.company.id),
+                ('state', 'in', ['draft', 'valid']),
+            ], limit=1)
+
+            if not existing_mandate:
+                mandate = Mandate.create({
+                    'format': 'sepa',
+                    'type': 'recurrent',
+                    'recurrent_sequence_type': 'first',
+                    'scheme': 'CORE',
+                    'partner_bank_id': bank.id,
+                    'unique_mandate_reference': dni,
+                    'signature_date': fields.Date.context_today(request.env.user),
+                    'state': 'valid',
+                    'company_id': request.env.company.id,
+                })
+
+                partner.message_post(
+                    body=Markup((
+                        "Mandato SEPA creado automaticamente desde o formulario web.<br/>"
+                        f"<b>Referencia:</b> {mandate.unique_mandate_reference}<br/>"
+                        f"<b>Conta:</b> {iban}<br/>"
+                        "<b>Tipo:</b> Recorrente<br/>"
+                        "<b>Esquema:</b> CORE"
                     )),
                     message_type='comment',
                     subtype_xmlid='mail.mt_note',
