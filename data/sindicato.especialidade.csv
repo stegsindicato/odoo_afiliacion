@@ -56,9 +56,12 @@ esp_590123,590,590123,Procesos e produtos en madeira e moble,True
 esp_590124,590,590124,Sistemas electrónicos,True
 esp_590125,590,590125,Sistemas electrotécnicos e automáticos,True
 esp_590214,590,590214,Operacións e equipos de elaboración de produtos alimentarios,True
+esp_590219,590,590219,Procedementos de diagnose clínica e ortoprotésica
 esp_590221,590,590221,Procesos comerciais,True
+esp_590222,590,590222,Procesos de xestión administrativa,True
 esp_590225,590,590225,Servizos á comunidade,True
 esp_590226,590,590226,Servizos de restauración,True
+esp_590227,590,590227,Sistemas e aplicativos informáticos
 esp_590229,590,590229,Técnicas e procedementos de imaxe e son,True
 esp_590803,590,590803,Cultura clásica,True
 esp_591016,591,591016,Prácticas de minería,True
@@ -337,3 +340,4 @@ esp_598008,598,598008,Producción en artes gráficas,True
 esp_598009,598,598009,Servicios de restauración,True
 esp_598010,598,598010,Soldadura,True
 esp_590206,590,590206,Instalacións electrotécnicas,True
+,,,,
