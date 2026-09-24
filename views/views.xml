@@ -102,6 +102,7 @@
   <menuitem id="menu_sindicato_root"
             name="Afiliación e Centros"
             sequence="1"
+            action="action_sindicato_panel"
             web_icon="steg_afiliacion,static/description/icon.png"/>
 
   <menuitem id="menu_sindicato_afiliados"
@@ -132,6 +133,47 @@
           parent="menu_sindicato_config"
           action="action_sindicato_baixas"
           sequence="40"/>
+
+  <!-- =========================================================
+     PANEL - AFILIADOS ACTIVOS POR SEDE
+     ========================================================= -->
+
+  <record id="view_partner_graph_afiliados_activos_sede" model="ir.ui.view">
+      <field name="name">res.partner.graph.afiliados.activos.sede</field>
+      <field name="model">res.partner</field>
+      <field name="arch" type="xml">
+          <graph string="Afiliados activos por sede" type="bar">
+              <field name="sede"/>
+          </graph>
+      </field>
+  </record>
+
+  <record id="action_sindicato_panel" model="ir.actions.act_window">
+    <field name="name">Panel de afiliación</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">graph</field>
+
+    <field name="domain">
+        [('e_afiliado', '=', True),
+         ('afiliacion_activa', '=', True)]
+    </field>
+
+    <field name="context">
+        {
+            'group_by': 'sede'
+        }
+    </field>
+  </record>
+
+  <record id="action_sindicato_panel_view_graph"
+        model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">graph</field>
+    <field name="view_id"
+           ref="view_partner_graph_afiliados_activos_sede"/>
+    <field name="act_window_id"
+           ref="action_sindicato_panel"/>
+  </record>
 
   <!-- =========================================================
        LISTAS
